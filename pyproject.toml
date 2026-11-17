@@ -5,14 +5,14 @@ build-backend = "uv_build"
 [project]
 name = "python_base"
 version = "0.0.1"
-description = "Template Python project pre-configured for uv dependency management."
-requires-python = ">=3.10"
+description = "A visual, hands-on lab for PyTorch 2.15 on Apple Silicon."
+requires-python = ">=3.11"
 readme = "README.md"
-keywords = ["template", "uv", "python"]
+keywords = ["pytorch", "mps", "float8", "apple-silicon"]
 authors = [{name = "Nipun Jindal", email = "njindal@adobe.com"}]
 # Runtime dependencies
 dependencies = [
-  "torch",
+  "torch>=2.15,<2.16",
   "torchvision",
   "matplotlib",
   "numpy"
@@ -62,5 +62,5 @@ exclude = [
   "node_modules",
   "venv"
 ]
-# Assume Python 3.10
-target-version = "py310"
+# PyTorch 2.15 requires Python 3.11 or newer.
+target-version = "py311"

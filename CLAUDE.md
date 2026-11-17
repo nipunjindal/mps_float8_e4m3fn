@@ -1,6 +1,7 @@
-# Python Base - Template Project
+# PyTorch 2.15 Apple Silicon Lab
 
-Starter Python project pre-configured with uv, ruff, ty, and pre-commit.
+A notebook-driven walkthrough for learning FP8 (`float8_e4m3fn`) support on
+Apple Silicon (MPS) in PyTorch 2.15. Tooling: uv, ruff, ty, and pre-commit.
 
 ## Quick Reference
 
@@ -19,11 +20,16 @@ make rename NEW=x   # Rename package from python_base to x
 - `src/python_base/` — Main package (use `make rename` to change)
 - `tests/` — Pytest test files
 - `scripts/` — Standalone scripts
+- `notebooks/` — Numbered learning notebooks (`01_fp8_basics.ipynb`, `02_scaling.ipynb`), committed with outputs
+- `docs/images/` — Charts written by the notebooks (`save()` helper) and embedded in `README.md`
+
+Execute a notebook in place:
+`uv run --with nbconvert jupyter nbconvert --to notebook --execute --inplace notebooks/<name>.ipynb`
 
 ## Tooling
 
 - **Package manager**: uv (not pip/poetry)
-- **Linter/formatter**: ruff (line-length 120, target py310)
+- **Linter/formatter**: ruff (line-length 120, target py311)
 - **Type checker**: ty
 - **Tests**: pytest (testpaths=tests, pythonpath=src)
 - **Pre-commit**: ruff-format, ruff lint, shfmt, toml-sort
@@ -36,7 +42,9 @@ Agent definitions live in `.claude/agents/` (orchestrator, implementer, reviewer
 
 - Run `make lint` before committing — pre-commit hooks enforce this
 - All source goes under `src/python_base/`; tests mirror the source structure in `tests/`
-- Python >=3.10 required
+- Python >=3.11 and PyTorch 2.15 required; MPS needs Apple Silicon and macOS 15+
+- Use `F.scaled_mm` (`_scaled_mm_v2`) for native FP8; probe legacy `_scaled_mm` separately
+- Never label CPU fallback or dequantized math as native GPU measurements
 - Keep this file updated as the project evolves — new deps, conventions, or structural changes should be reflected here
 
 ## Coding Standards
